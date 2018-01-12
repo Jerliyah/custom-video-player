@@ -7,10 +7,8 @@
         <link rel="stylesheet"
               href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-        <style>
-        </style>
-        
-
+        <link rel="stylesheet"
+              href="style.css">
     </head>
 
     <body>
@@ -25,7 +23,20 @@
                 <video src="videos/Stronger_Than_You-Estelle.mp4" autoplay></video>
 
                 <div id="video-controls">
+                    <!-- Change this based on if I decided to do autoplay or not -->
                     <i class="material-icons" id="play">play_arrow</i>
+
+                    <i class="material-icons" data-skip="25" data-direction="back">skip_previous</i>
+                    <i class="material-icons" data-skip="10" data-direction="back">skip_previous</i>
+
+                    <i class="material-icons" data-skip="10" data-direction="forward">skip_next</i>
+                    <i class="material-icons" data-skip="25" data-direction="forward">skip_next</i>
+
+                    <input type="range" name="volume">
+                    
+                    <ul id="speed-ctn">
+                        Speed
+                    </ul>
                 </div>
 
             </div>

@@ -1,0 +1,32 @@
+#video-controls {
+    --theme-color: blue;
+
+    display: flex;
+    justify-content: space-around;
+    color: var(--theme-color);
+    font-family: sans-serif;
+}
+
+.skip-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+#speed-ctn {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#speed-ctn > li {
+    display: none;
+    padding: 0.5em 1em;
+}
+
+#speed-ctn > li:hover {
+    background: rgba(0,0,0, 0.3);
+}
+
+#speed-ctn.showing-options > li {
+    display: block;
+}
