@@ -3,8 +3,23 @@
 
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
     color: var(--theme-color);
     font-family: sans-serif;
+}
+
+#progress-ctn {
+    width: 100%;
+    background: blue;
+    height: 10px;
+}
+
+#progress-bar {
+    height: 100%;
+    width: 0;
+    border-right: 1px solid greenyellow;
+    box-sizing: border-box;
+    background: yellow;
 }
 
 .skip-wrapper {
@@ -30,3 +45,4 @@
 #speed-ctn.showing-options > li {
     display: block;
 }
+
