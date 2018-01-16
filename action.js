@@ -33,11 +33,11 @@ const skips = player.querySelectorAll('div.skip-wrapper')
 
 // Speed
 const speed_ctn = player.querySelector('ul#speed-ctn');
-var speeds = [0.5, 1, 1.5, 2]
+var speeds = [0.5, 1, 1.5, 1.75, 2]
 speeds.forEach( (speed) => {
     speed_ctn.insertAdjacentHTML('beforeend', `<li data-speed="${speed}">${speed}x</li>`)
 })
-const speed_options = speed_ctn.querySelector('li');
+const speed_options = Array.from( [...speed_ctn.querySelectorAll('li')] );
 
 
 
@@ -55,6 +55,8 @@ function skip() {
 
 function change_video_speed() {
     let speed = this.dataset.speed;
+    console.log(speed);
+    video.playbackRate = speed;
 }
 
 function handle_progress() {
@@ -62,11 +64,26 @@ function handle_progress() {
     progress_bar.style.width = progress + "%";
 }
 
+function change_progress(e) {
+    console.log(mousedown)
+    let changed_progress = (e.offsetX / progress_bar.offsetWidth) * video.currentTime;
+    video.currentTime = changed_progress
+}
+
+function toggle_fullscreen() {
+
+}
 
 
 // ------------ User Controls ---------------
-    // See Progess
+let mousedown = false
+window.addEventListener('mousedown', () => mousedown = true);
+window.addEventListener('mouseup', () => mousedown = false);
+
+    // Progress
 video.addEventListener('timeupdate', handle_progress);
+progress_bar.parentElement.addEventListener('mousemove', (e) => mousedown && change_progress(e))
+progress_bar.parentElement.addEventListener('click', change_progress);
 
     // Pause and Play
 play_btn.addEventListener('click', toggle_play);
@@ -81,9 +98,7 @@ skips.forEach( (skip_btn) => { skip_btn.addEventListener('click', skip) })
 
     // Speed Change
 speed_ctn.addEventListener('click', function() { this.classList.toggle('showing-options') })
-speed_options.addEventListener('click', change_video_speed)
-
-progress_bar.addEventListener('mouseover', handle_progress)
+speed_options.forEach( (speed_option) => speed_option.addEventListener('click', change_video_speed) )
 
 
 
