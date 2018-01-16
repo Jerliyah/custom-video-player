@@ -1,7 +1,6 @@
 /*
 TODO:
-1) Finish tutorial
-2) Customization options
+Customization options
     - Theme color
     - background (given list and upload)
     - video upload
@@ -13,7 +12,7 @@ TODO:
 const player = document.querySelector('#player');
 const video = player.querySelector('video');
 const video_controls = player.querySelector('#video-controls');
-const progress_bar = player.querySelector('div#progress-bar');
+const progress_bar  =  player.querySelector('div#progress-bar');
 
 // Play
 const play_btn = player.querySelector('i#play');
@@ -38,6 +37,9 @@ speeds.forEach( (speed) => {
     speed_ctn.insertAdjacentHTML('beforeend', `<li data-speed="${speed}">${speed}x</li>`)
 })
 const speed_options = Array.from( [...speed_ctn.querySelectorAll('li')] );
+
+// Fullscreen
+fullscreen_btn = player.querySelector('i#fullscreen');
 
 
 
@@ -70,13 +72,37 @@ function change_progress(e) {
     video.currentTime = changed_progress
 }
 
-function toggle_fullscreen() {
 
+
+function toggle_fullscreen() {
+        let vc = video.controls
+
+        // Currently fullscreen
+        if( document.fullscreenElement ||
+            document.mozFullScreenElement ||
+            document.webkitFullscreenElement ) {
+                video.controls = true
+            }
+        else {
+            // Request based on browser
+            if (video.requestFullscreen) { video.requestFullscreen(); }
+            else if (video.mozRequestFullScreen) { video.mozRequestFullScreen(); }
+            else if (video.webkitRequestFullscreen) { video.webkitRequestFullscreen(); }
+
+            video.controls = false;
+        }
+
+        
+
+    
 }
 
 
 // ------------ User Controls ---------------
-let mousedown = false
+let mousedown = false;
+var fullscreenElement = 
+    document.fullscreenElement || document.mozFullScreenElement || 
+    document.webkitFullscreenElement || document.msFullscreenElement;
 window.addEventListener('mousedown', () => mousedown = true);
 window.addEventListener('mouseup', () => mousedown = false);
 
@@ -99,6 +125,11 @@ skips.forEach( (skip_btn) => { skip_btn.addEventListener('click', skip) })
     // Speed Change
 speed_ctn.addEventListener('click', function() { this.classList.toggle('showing-options') })
 speed_options.forEach( (speed_option) => speed_option.addEventListener('click', change_video_speed) )
+
+    // Fullscreen
+fullscreen_btn.addEventListener('click', toggle_fullscreen);
+window.addEventListener('resize', toggle_fullscreen)
+
 
 
 
